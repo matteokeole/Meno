@@ -12,6 +12,13 @@ export const Fixtures = {
         content: "pouet pouet",
         updatedAt: new Date,
       },
+      {
+        id: 1,
+        content: "pouet pouet pouet",
+        updatedAt:  new Date(new Date().setDate(new Date().getDate() + 3)),
+    
+      },
+
     ];
 
     return notes;
