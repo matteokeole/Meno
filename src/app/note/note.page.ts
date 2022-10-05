@@ -23,6 +23,7 @@ export class NotePage implements OnInit {
     this.editorConfig = {
       base_url: "/tinymce",
       suffix: ".min",
+      height: 800,
     }
     this.delay = 250;
     this.canDismiss = true;
