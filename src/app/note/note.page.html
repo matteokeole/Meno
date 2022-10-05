@@ -16,7 +16,7 @@
   </ion-header>
 
   <ion-content>
-    <editor [init]="editorConfig" (onInit)="init($event)" (onSelectionChange)="save($event)"></editor>
+    <editor [init]="editorConfig" (onInit)="init($event)" (onChange)="save($event)"></editor>
 
     <ion-modal #details trigger="show-note-details" [canDismiss]="canDismiss" [presentingElement]="presentingElement">
       <ng-template>

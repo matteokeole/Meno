@@ -83,6 +83,7 @@ export class HomePage implements OnInit {
       (await this.toastController.create({
         icon: "checkmark-circle-outline",
         message: "La note a été supprimée.",
+        duration: 2000,
       })).present();
 
       // Retrieve the updated list
