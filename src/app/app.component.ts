@@ -5,16 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
-export class AppComponent {
-  public tabs: Array<object> = [
-    {
-      route: "home",
-      icon: "home",
-      name: "Accueil",
-    }, {
-      route: "roster",
-      icon: "people-circle",
-      name: "Etudiants",
-    },
-  ];
-}
+export class AppComponent {}

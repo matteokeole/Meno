@@ -10,9 +10,6 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full',
   }, {
-    path: 'roster',
-    loadChildren: () => import('./roster/roster.module').then( m => m.RosterPageModule),
-  }, {
     path: 'note/:id',
     loadChildren: () => import('./note/note.module').then( m => m.NotePageModule),
   },
