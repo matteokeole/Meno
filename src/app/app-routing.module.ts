@@ -4,16 +4,17 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-  },
-  {
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
+  }, {
     path: '',
     redirectTo: 'home',
-    pathMatch: 'full'
-  },
-  {
+    pathMatch: 'full',
+  }, {
     path: 'roster',
-    loadChildren: () => import('./roster/roster.module').then( m => m.RosterPageModule)
+    loadChildren: () => import('./roster/roster.module').then( m => m.RosterPageModule),
+  }, {
+    path: 'note/:id',
+    loadChildren: () => import('./note/note.module').then( m => m.NotePageModule),
   },
 ];
 
@@ -23,4 +24,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
