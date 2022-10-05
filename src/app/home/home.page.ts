@@ -25,7 +25,8 @@ export class HomePage implements OnInit {
     this.results = this.notes.filter(
       (note) =>
         note.content.toLowerCase().includes(query) ||
-        note.updatedAt.toString().includes(query)
+        note.updatedAt.toString().includes(query)  || 
+        note.title.toString().includes(query)
     );
   }
 

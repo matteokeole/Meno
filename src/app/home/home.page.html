@@ -23,7 +23,8 @@
   <ion-list>
     <ion-item-sliding *ngFor="let note of results">
       <ion-item routerLink="/note/{{note.id}}">
-        <ion-label slot="start">{{note.content}}</ion-label>
+        <ion-label slot="start">{{note.title}}</ion-label>
+        <ion-label >{{note.content}}</ion-label>
         <ion-label slot="end"> {{ formatDate(note.updatedAt) }} </ion-label>
       </ion-item>
       <ion-item-options side="end">
