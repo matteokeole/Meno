@@ -7,25 +7,17 @@ import { Note, NoteService } from '../note.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  private editorConfig: object;
-  private timeout;
-  private delay: number;
   private notes: Note[];
   private results: Note[];
 
-  constructor(private noteService: NoteService) {
-    this.editorConfig = {
-      base_url: '/tinymce',
-      suffix: '.min',
-    };
-
-    this.delay = 250;
-  }
+  constructor(
+    private noteService: NoteService,
+  ) {}
 
   ngOnInit(): void {
-    this.notes =this.results = this.noteService.findAll();
+    this.notes = this.results = this.noteService.findAll();
   }
-  
+
   searchNotes(e): void {
     const query = e.target.value.toLowerCase();
     this.results = this.notes.filter(
@@ -35,10 +27,6 @@ export class HomePage implements OnInit {
     );
   }
 
-  init(e): void {
-    // Hide the TinyMCE status bar
-    document.querySelector('.tox-statusbar').remove();
-  }
   formatDate(date: Date): string {
     // si la date est aujourd'hui, on affiche l'heure
     if (date.toDateString() === new Date().toDateString()) {
@@ -53,13 +41,5 @@ export class HomePage implements OnInit {
         day: 'numeric',
       });
     }
-  }
-  
-
-  save(e): void {
-    clearTimeout(this.timeout);
-    this.timeout = setTimeout(() => {
-      console.log('Saving...');
-    }, this.delay);
   }
 }
