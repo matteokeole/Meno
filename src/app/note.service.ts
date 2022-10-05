@@ -1,21 +1,29 @@
 import { Injectable } from '@angular/core';
-import { Fixtures } from './fixtures';
+
+let id = 0;
 
 export interface Note {
   id: number,
-  title : string,
+  title: string,
   content: string,
   updatedAt: Date,
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NoteService {
   private notes: Note[];
 
   constructor() {
-    this.notes = Fixtures.loadNotes();
+    this.notes = [];
+
+    for (let i = 0; i < 10; i++) {
+      this.create({
+        title: `pouet${i}`,
+        content: `Content pouet${i}`,
+      });
+    }
   }
 
   find(id: number): Note {
@@ -42,8 +50,20 @@ export class NoteService {
     return note.length ? note[0] : undefined;
   }
 
+  create(note): Note {
+    note.id = id++;
+    note.updatedAt = new Date;
 
-   delete(id: number): void {
+    this.notes.push(note);
+
+    return note;
+  }
+
+  save(note: Note): void {
+    note.updatedAt = new Date;
+  }
+
+  delete(id: number): void {
     this.notes = this.notes.filter(note => note.id !== id);
   }
 }

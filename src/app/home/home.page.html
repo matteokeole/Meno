@@ -1,38 +1,44 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title> Mes Notes </ion-title>
+    <ion-title>Notes</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="createNote()">
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-
-
-
-<ion-content [fullscreen]="true">
+<ion-content>
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Accueil</ion-title>
+      <ion-title size="large">Notes</ion-title>
+    </ion-toolbar>
+
+    <ion-toolbar>
+      <ion-searchbar
+        placeholder="Rechercher"
+        show-clear-button="always"
+        [debounce]="250"
+        (ionChange)="searchNotes($event)"
+      ></ion-searchbar>
     </ion-toolbar>
   </ion-header>
-  <ion-searchbar
-  animated="true"
-  placeholder="Rechercher"
-  show-clear-button="always"
-  [debounce]="250"
-  (ionChange)="searchNotes($event)"
-></ion-searchbar>
+
   <ion-list>
     <ion-item-sliding *ngFor="let note of results">
       <ion-item routerLink="/note/{{note.id}}">
-        <ion-label slot="start">{{note.title}}</ion-label>
-        <ion-label >{{note.content}}</ion-label>
-        <ion-label slot="end"> {{ formatDate(note.updatedAt) }} </ion-label>
+        <ion-label>
+          <h2>{{note.title}}</h2>
+          <p>dernière màj à {{formatDate(note.updatedAt)}}</p>
+        </ion-label>
       </ion-item>
+
       <ion-item-options side="end">
-        <!--View note -->
-        <ion-item-option expandable>
-          <ion-icon name="trash-outline"
-          (click)="deleteNoteAlert(note)"
-          ></ion-icon>
+        <!-- Delete the note -->
+        <ion-item-option color="danger" (click)="deleteNote(note)" expandable>
+          <ion-icon name="trash" style="font-size: 24px"></ion-icon>
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>

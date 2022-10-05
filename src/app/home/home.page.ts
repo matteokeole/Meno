@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
-
+import { Router } from '@angular/router';
+import { AlertController, ToastController } from '@ionic/angular';
 import { Note, NoteService } from '../note.service';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -14,6 +15,8 @@ export class HomePage implements OnInit {
   constructor(
     private noteService: NoteService,
     private alertController: AlertController,
+    private toastController: ToastController,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -46,19 +49,26 @@ export class HomePage implements OnInit {
     }
   }
 
-  async deleteNoteAlert(note: Note) {
+  createNote() {
+    const note = this.noteService.create({
+      title: "Nouvelle note",
+      content: "",
+    });
+
+    this.router.navigate([`/note/${note.id}`]);
+  }
+
+  async deleteNote(note: Note) {
     const alert = await this.alertController.create({
-      header: 'Confirmation de suppression',
-      subHeader: 'di',
-      message: `Etes-vous sûr(e) de vouloir supprimer ${note.content} ?`,
+      header: 'Confirmation',
+      message: `Voulez-vous supprimer la note ${note.title} ?`,
       buttons: [
         {
-          text: 'Annuler',
-          role: 'cancel',
-        },
-        {
-          text: 'Supprimer',
-          role: 'destructive',
+          text: "Annuler",
+          role: "cancel",
+        }, {
+          text: "Supprimer",
+          role: "destructive",
         },
       ],
     });
@@ -67,8 +77,15 @@ export class HomePage implements OnInit {
 
     const response = await alert.onDidDismiss();
 
-    if (response.role === 'destructive') {
+    if (response.role === "destructive") {
       this.noteService.delete(note.id);
+
+      (await this.toastController.create({
+        icon: "checkmark-circle-outline",
+        message: "La note a été supprimée.",
+      })).present();
+
+      // Retrieve the updated list
       this.notes = this.results = this.noteService.findAll();
     }
   }
