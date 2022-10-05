@@ -14,18 +14,12 @@
   </ion-header>
 
   <ion-card>
-    <ion-img src="https://i.f1g.fr/media/eidos/805x453_crop/2020/06/17/XVM27052676-b072-11ea-8f38-691e76f530b2.jpg"></ion-img>
-
     <ion-card-header>
-      <ion-card-subtitle>Gestion de la présence des étudiants</ion-card-subtitle>
-      <ion-card-title>Attendance</ion-card-title>
+      <ion-card-subtitle>TinyMCE test</ion-card-subtitle>
     </ion-card-header>
   
     <ion-card-content>
-      Attendance est une application de gestion de la présence des étudiants dans une classe.
+      <editor [init]="editorConfig" (onInit)="init($event)" (onSelectionChange)="save($event)"></editor>
     </ion-card-content>
   </ion-card>
-  <editor
-    [init]="tinyMCEConfiguration"
-  ></editor>
 </ion-content>
