@@ -16,7 +16,7 @@
   </ion-header>
 
   <ion-content>
-    @todo: note TinyMCE here
+    <editor [init]="editorConfig" (onInit)="init($event)" (onSelectionChange)="save($event)"></editor>
 
     <ion-modal #details trigger="show-note-details" [canDismiss]="canDismiss" [presentingElement]="presentingElement">
       <ng-template>
@@ -30,7 +30,7 @@
         </ion-header>
 
         <ion-content>
-          @todo: note details
+          Dernière mise à jour : {{updatedAt}}
         </ion-content>
       </ng-template>
     </ion-modal>

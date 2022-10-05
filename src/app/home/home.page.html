@@ -6,20 +6,4 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Accueil</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <ion-card>
-    <ion-card-header>
-      <ion-card-subtitle>TinyMCE test</ion-card-subtitle>
-    </ion-card-header>
-  
-    <ion-card-content>
-      <editor [init]="editorConfig" (onInit)="init($event)" (onSelectionChange)="save($event)"></editor>
-    </ion-card-content>
-  </ion-card>
-</ion-content>
+<ion-content [fullscreen]="true"></ion-content>

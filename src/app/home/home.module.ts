@@ -5,8 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
-import { EditorModule } from '@tinymce/tinymce-angular';
-
 
 @NgModule({
   imports: [
@@ -14,7 +12,6 @@ import { EditorModule } from '@tinymce/tinymce-angular';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    EditorModule 
   ],
   declarations: [HomePage]
 })

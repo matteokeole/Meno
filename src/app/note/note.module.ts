@@ -5,15 +5,17 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { NotePageRoutingModule } from './note-routing.module';
-
 import { NotePage } from './note.page';
+
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    NotePageRoutingModule
+    NotePageRoutingModule,
+    EditorModule,
   ],
   declarations: [NotePage]
 })

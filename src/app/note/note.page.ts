@@ -9,13 +9,24 @@ import { Note, NoteService } from '../note.service';
 })
 export class NotePage implements OnInit {
   public note: Note;
-  private canDismiss = true;
-  private presentingElement = null;
+  private updatedAt: string;
+  private editorConfig: object;
+  private timeout;
+  private delay: number;
+  private canDismiss: boolean;
+  private presentingElement;
 
   constructor(
     private noteService: NoteService,
     private activatedRoute: ActivatedRoute,
-  ) {}
+  ) {
+    this.editorConfig = {
+      base_url: "/tinymce",
+      suffix: ".min",
+    }
+    this.delay = 250;
+    this.canDismiss = true;
+  }
 
   ngOnInit() {
     // Convert the string ID to a number
@@ -24,5 +35,24 @@ export class NotePage implements OnInit {
     this.note = this.noteService.find(id);
 
     this.presentingElement = document.querySelector(".ion-page");
+
+    this.updatedAt = new Intl.DateTimeFormat("fr-FR").format(this.note.updatedAt);
+  }
+
+  init(e) {
+    const {editor} = e;
+
+    // Set note content
+    editor.setContent(this.note.content);
+
+    // Hide the TinyMCE status bar
+    document.querySelector(".tox-statusbar").remove();
+  }
+
+  save(e) {
+    clearTimeout(this.timeout);
+    this.timeout = setTimeout(() => {
+      console.log("Saving...");
+    }, this.delay);
   }
 }
