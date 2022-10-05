@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertController, ToastController } from '@ionic/angular';
 
 import { Note, NoteService } from '../note.service';
 @Component({
@@ -40,6 +41,33 @@ export class HomePage implements OnInit {
         month: 'long',
         day: 'numeric',
       });
+    }
+  }
+
+  async deleteNoteAlert(note: Note) {
+    const alert = await this.alertController.create({
+      header: 'Confirmation de suppression',
+      subHeader: 'di',
+      message: `Etes-vous sûr(e) de vouloir supprimer ${note.content} ?`,
+      buttons: [
+        {
+          text: 'Annuler',
+          role: 'cancel',
+        },
+        {
+          text: 'Supprimer',
+          role: 'destructive',
+        },
+      ],
+    });
+
+    alert.present();
+
+    const response = await alert.onDidDismiss();
+
+    if (response.role === 'destructive') {
+      this.noteService.delete(note.id);
+      this.notes = this.results = this.noteService.findAll();
     }
   }
 }
