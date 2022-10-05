@@ -9,6 +9,8 @@ import { Note, NoteService } from '../note.service';
 })
 export class NotePage implements OnInit {
   public note: Note;
+  private canDismiss = true;
+  private presentingElement = null;
 
   constructor(
     private noteService: NoteService,
@@ -21,6 +23,6 @@ export class NotePage implements OnInit {
 
     this.note = this.noteService.find(id);
 
-    console.log(this.note);
+    this.presentingElement = document.querySelector(".ion-page");
   }
 }

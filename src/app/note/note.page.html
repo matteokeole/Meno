@@ -1,9 +1,38 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Note</ion-title>
-  </ion-toolbar>
-</ion-header>
+<div class="ion-page">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button default-href="#"></ion-back-button>
+      </ion-buttons>
 
-<ion-content>
+      <ion-title>@todo: note.title</ion-title>
 
-</ion-content>
+      <ion-buttons slot="end">
+        <ion-button id="show-note-details">
+          <ion-icon name="ellipsis-horizontal-circle-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    @todo: note TinyMCE here
+
+    <ion-modal #details trigger="show-note-details" [canDismiss]="canDismiss" [presentingElement]="presentingElement">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Détails</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="details.dismiss()">Fermer</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+
+        <ion-content>
+          @todo: note details
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+  </ion-content>
+</div>
