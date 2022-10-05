@@ -72,5 +72,4 @@ export class HomePage implements OnInit {
       this.notes = this.results = this.noteService.findAll();
     }
   }
-  }
 }
