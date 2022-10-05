@@ -53,6 +53,8 @@ export class NotePage implements OnInit {
   save(e) {
     clearTimeout(this.timeout);
     this.timeout = setTimeout(() => {
+      this.note.content=e.editor.getContent();
+      //this.noteService.save(this.note)
       console.log("Saving...");
     }, this.delay);
   }
