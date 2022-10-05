@@ -37,13 +37,13 @@ export class NoteService {
 
   findOneBy(filters: object): Note {
     const note = this.findBy(filters);
-
     return note.length ? note[0] : undefined;
   }
 
-  // delete(id: number|Student) {
-  //   this.students = typeof id === "number" ?
-  //     this.students.filter(student => student.id !== id) :
-  //     this.students.filter(student => student.id !== id.id);
-  // }
+
+   delete(id: number|Note): void  {
+     this.notes = typeof id === "number" ?
+       this.notes.filter(this.note => this.note.id !== id) :
+       this.notes.filter(this.note => this.note.id !== id.id);
+   }
 }
