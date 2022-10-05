@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, ToastController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 
 import { Note, NoteService } from '../note.service';
 @Component({
@@ -13,6 +13,7 @@ export class HomePage implements OnInit {
 
   constructor(
     private noteService: NoteService,
+    private alertController: AlertController,
   ) {}
 
   ngOnInit(): void {
