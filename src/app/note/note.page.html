@@ -1,41 +1,37 @@
-<div class="ion-page">
-  <ion-header>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-back-button defaultHref="home" text="Notes"></ion-back-button>
-      </ion-buttons>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home" text="Notes"></ion-back-button>
+    </ion-buttons>
 
-      <ion-title>@todo: note.title</ion-title>
+    <ion-title>@todo: note.title</ion-title>
 
-      <ion-buttons slot="end">
-        <ion-button id="show-note-details">
-          <ion-icon name="ellipsis-horizontal-circle-outline"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
+    <ion-buttons slot="end">
+      <ion-button id="show-note-details">
+        <ion-icon name="ellipsis-horizontal-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
-  <ion-content>
-    <editor [init]="editorConfig" (onInit)="init($event)" (onChange)="save($event)"></editor>
+<ion-content class="ion-padding">
+  <editor [init]="editorConfig" (onInit)="init($event)" (onChange)="save($event)"></editor>
 
-    <ion-modal #details trigger="show-note-details" [canDismiss]="canDismiss" [presentingElement]="presentingElement">
-      <ng-template>
-        <ion-header>
-          <ion-toolbar>
-            <ion-title>Détails</ion-title>
-            <ion-buttons slot="end">
-              <ion-button (click)="details.dismiss()">Fermer</ion-button>
-            </ion-buttons>
-          </ion-toolbar>
-        </ion-header>
+  <ion-modal #details trigger="show-note-details" canDismiss="true" [presentingElement]="presentingElement">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Détails</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="details.dismiss()">Fermer</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
 
-        <ion-content>
-          Dernière mise à jour : {{updatedAt}}
-          <br>
-          <ion-button (click)="sharing()">share</ion-button>
-        </ion-content>
-        
-      </ng-template>
-    </ion-modal>
-  </ion-content>
-</div>
+      <ion-content>
+        Dernière mise à jour : {{updatedAt}}<br>
+        <ion-button (click)="sharing()">share</ion-button>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

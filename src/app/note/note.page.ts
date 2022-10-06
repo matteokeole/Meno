@@ -14,7 +14,6 @@ export class NotePage implements OnInit {
   private editorConfig: object;
   private timeout;
   private delay: number;
-  private canDismiss: boolean;
   private presentingElement;
 
   constructor(
@@ -27,7 +26,7 @@ export class NotePage implements OnInit {
       height: 800,
     }
     this.delay = 250;
-    this.canDismiss = true;
+    this.presentingElement = this.hostElement;
   }
 
   ngOnInit() {
