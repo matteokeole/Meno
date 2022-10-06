@@ -4,10 +4,6 @@ import { IonRouterOutlet, ModalController } from '@ionic/angular';
 import { Note, NoteService } from '../note.service';
 import { DetailPage } from '../detail/detail.page';
 import { PluginListenerHandle } from '@capacitor/core';
-import { Motion  } from '@capacitor/motion';
-
-
-
 
 @Component({
   selector: 'app-note',
