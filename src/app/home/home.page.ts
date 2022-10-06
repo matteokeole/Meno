@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
 import { Note, NoteService } from '../note.service';
+import { Dialog } from '@capacitor/dialog';
+import { Toast } from '@capacitor/toast';
+
+
 
 @Component({
   selector: 'app-home',
@@ -58,6 +62,16 @@ export class HomePage implements OnInit {
     this.router.navigate([`/note/${note.id}`]);
   }
 
+  toggleFavorite(note: Note) {
+    note.favorite = !note.favorite;
+    console.log(note)
+    this.notes = this.results = this.noteService.findAll();
+  }
+
+  
+
+
+
   async deleteNote(note: Note) {
     const alert = await this.alertController.create({
       header: 'Confirmation',
@@ -79,15 +93,37 @@ export class HomePage implements OnInit {
 
     if (response.role === "destructive") {
       this.noteService.delete(note.id);
-
+      
       (await this.toastController.create({
         icon: "checkmark-circle-outline",
         message: "La note a été supprimée.",
         duration: 2000,
       })).present();
-
+      
       // Retrieve the updated list
       this.notes = this.results = this.noteService.findAll();
     }
   }
+
+ async deteleAlertNative(note:Note){
+  const { value } = await Dialog.confirm({
+    title: 'Confirm',
+    message: `Suprimer cette note ?`,
+  });
+  console.log('Confirmed:', value);
+  if (value == true) {
+    this.noteService.delete(note.id);
+    this.notes = this.results = this.noteService.findAll();
+  }
+ }
+
+
+ async showHelloToast () {
+  await Toast.show({
+    text: 'La note a été supprimée !',
+  });
+};
+
+
+
 }

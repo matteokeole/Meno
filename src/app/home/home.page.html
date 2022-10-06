@@ -28,9 +28,23 @@
 
   <ion-list>
     <ion-item-sliding *ngFor="let note of results">
+      <ion-item-options side="start">
+        <ion-item-option color="primary" (click)="toggleFavorite(note)" expandable>
+          <ion-icon
+            name="{{note.favorite ? 'star' : 'star-outline'}}"
+            style="font-size: 20px"
+          ></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+
       <ion-item routerLink="/note/{{note.id}}">
         <ion-label>
-          <h2>{{note.title}}</h2>
+          <h2>
+            {{note.title}}
+            <ion-badge color="primary" *ngIf="note.favorite">
+              <ion-icon name="star-outline"></ion-icon>
+            </ion-badge>
+          </h2>
           <p>dernière màj à {{formatDate(note.updatedAt)}}</p>
         </ion-label>
       </ion-item>
@@ -39,6 +53,12 @@
         <!-- Delete the note -->
         <ion-item-option color="danger" (click)="deleteNote(note)" expandable>
           <ion-icon name="trash" style="font-size: 24px"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="primary" (click)="deleteNote(note)" expandable>
+          <ion-icon
+            name="share-social-outline"
+            style="font-size: 24px"
+          ></ion-icon>
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>

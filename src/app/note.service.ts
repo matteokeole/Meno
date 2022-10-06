@@ -6,6 +6,7 @@ export interface Note {
   id: number,
   title: string,
   content: string,
+  favorite: boolean,
   updatedAt: Date,
 }
 
@@ -22,6 +23,7 @@ export class NoteService {
       this.create({
         title: `pouet${i}`,
         content: `Content pouet${i}`,
+        favorite: i % 3 === 0,
       });
     }
   }
