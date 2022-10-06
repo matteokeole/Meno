@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Note, NoteService } from '../note.service';
 import { Share } from '@capacitor/share';
+import { Device } from '@capacitor/device';
 
 @Component({
   selector: 'app-note',
@@ -51,11 +52,20 @@ export class NotePage implements OnInit {
   }
 
   async sharing(){
+    const info = await Device.getInfo();
+    const infoBattery = await Device.getBatteryInfo();
     await Share.share({
       title: this.note.title,
-      text: this.note.content,
+      text: this.note.content+" depuis mon " +info.model+" chargé à "+(infoBattery.batteryLevel*100)+'%',
     });
   }
+
+  logDeviceInfo = async () => {
+    const info = await Device.getInfo();
+    const infobattery = await Device.getBatteryInfo();
+    console.log(info.model);
+    console.log(infobattery.batteryLevel*100)
+  };
 
   save(e) {
     clearTimeout(this.timeout);
