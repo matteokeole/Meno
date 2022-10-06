@@ -4,8 +4,7 @@ import { AlertController, ToastController } from '@ionic/angular';
 import { Note, NoteService } from '../note.service';
 import { Dialog } from '@capacitor/dialog';
 import { Toast } from '@capacitor/toast';
-
-
+import * as Utils  from '../utils' 
 
 @Component({
   selector: 'app-home',
@@ -20,7 +19,7 @@ export class HomePage implements OnInit {
     private noteService: NoteService,
     private alertController: AlertController,
     private toastController: ToastController,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -32,7 +31,7 @@ export class HomePage implements OnInit {
     this.results = this.notes.filter(
       (note) =>
         note.content.toLowerCase().includes(query) ||
-        note.updatedAt.toString().includes(query)  || 
+        note.updatedAt.toString().includes(query) ||
         note.title.toString().includes(query)
     );
   }
@@ -55,22 +54,17 @@ export class HomePage implements OnInit {
 
   createNote() {
     const note = this.noteService.create({
-      title: "Nouvelle note",
-      content: "",
+      title: 'Nouvelle note',
+      content: '',
     });
 
     this.router.navigate([`/note/${note.id}`]);
   }
 
   toggleFavorite(note: Note) {
-    note.favorite = !note.favorite;
-    console.log(note)
+   Utils.toggleFavorite(note)
     this.notes = this.results = this.noteService.findAll();
   }
-
-  
-
-
 
   async deleteNote(note: Note) {
     const alert = await this.alertController.create({
@@ -78,11 +72,12 @@ export class HomePage implements OnInit {
       message: `Voulez-vous supprimer la note ${note.title} ?`,
       buttons: [
         {
-          text: "Annuler",
-          role: "cancel",
-        }, {
-          text: "Supprimer",
-          role: "destructive",
+          text: 'Annuler',
+          role: 'cancel',
+        },
+        {
+          text: 'Supprimer',
+          role: 'destructive',
         },
       ],
     });
@@ -91,39 +86,37 @@ export class HomePage implements OnInit {
 
     const response = await alert.onDidDismiss();
 
-    if (response.role === "destructive") {
+    if (response.role === 'destructive') {
       this.noteService.delete(note.id);
-      
-      (await this.toastController.create({
-        icon: "checkmark-circle-outline",
-        message: "La note a été supprimée.",
-        duration: 2000,
-      })).present();
-      
+
+      (
+        await this.toastController.create({
+          icon: 'checkmark-circle-outline',
+          message: 'La note a été supprimée.',
+          duration: 2000,
+        })
+      ).present();
+
       // Retrieve the updated list
       this.notes = this.results = this.noteService.findAll();
     }
   }
 
- async deteleAlertNative(note:Note){
-  const { value } = await Dialog.confirm({
-    title: 'Confirm',
-    message: `Suprimer cette note ?`,
-  });
-  console.log('Confirmed:', value);
-  if (value == true) {
-    this.noteService.delete(note.id);
-    this.notes = this.results = this.noteService.findAll();
+  async deteleAlertNative(note: Note) {
+    const { value } = await Dialog.confirm({
+      title: 'Confirm',
+      message: `Suprimer cette note ?`,
+    });
+    console.log('Confirmed:', value);
+    if (value == true) {
+      this.noteService.delete(note.id);
+      this.notes = this.results = this.noteService.findAll();
+    }
   }
- }
 
-
- async showHelloToast () {
-  await Toast.show({
-    text: 'La note a été supprimée !',
-  });
-};
-
-
-
+  async showHelloToast() {
+    await Toast.show({
+      text: 'La note a été supprimée !',
+    });
+  }
 }
