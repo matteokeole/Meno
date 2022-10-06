@@ -8,15 +8,21 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+  <!-- Note title -->
+  <ion-input placeholder="Titre" value="{{note.title}}" (change)="changeTitle($event)"></ion-input><br>
+
+  <!-- Last update date -->
+  <ion-text color="medium">Dernière mise à jour le {{updatedAt}}</ion-text><br><br>
+
+  <!-- Favorite update -->
   <ion-button shape="round" fill="clear" (click)="toggleFavorite()">
     <ion-icon name="{{note.isFavorite ? 'star' : 'star-outline'}}"></ion-icon>
     <ion-text>&nbsp;&nbsp;{{note.isFavorite ? "Supprimer des" : "Ajouter aux"}} favoris</ion-text>
-  </ion-button><br>
+  </ion-button>
 
+  <!-- Sharing -->
   <ion-button color="tertiary" shape="round" fill="clear" (click)="share()">
     <ion-icon name="share-social"></ion-icon>
     <ion-text>&nbsp;&nbsp;Partager</ion-text>
-  </ion-button><br><br>
-
-  <ion-text color="medium">Dernière mise à jour le {{updatedAt}}</ion-text>
+  </ion-button>
 </ion-content>
