@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Note, NoteService } from '../note.service';
+import { Share } from '@capacitor/share';
 
 @Component({
   selector: 'app-note',
@@ -48,6 +49,13 @@ export class NotePage implements OnInit {
 
     // Hide the TinyMCE status bar
     document.querySelector(".tox-statusbar").remove();
+  }
+
+  async sharing(){
+    await Share.share({
+      title: this.note.title,
+      text: this.note.content,
+    });
   }
 
   save(e) {
