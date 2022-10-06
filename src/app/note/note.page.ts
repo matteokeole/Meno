@@ -79,7 +79,8 @@ export class NotePage implements OnInit {
         note: this.note,
       },
       canDismiss: true,
-      presentingElement: this.routerOutlet.nativeEl,
+      breakpoints: [.25, .5, .75],
+      initialBreakpoint: .25,
     })).present();
   }
 }
