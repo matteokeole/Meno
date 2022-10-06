@@ -35,7 +35,7 @@
                 "output": "/tinymce/" 
               }
             ],
-            "styles": ["src/theme/variables.scss", "src/global.scss"],
+            "styles": ["src/theme/fonts.scss", "src/theme/variables.scss", "src/global.scss"],
             "scripts": [
               "node_modules/tinymce/tinymce.min.js"
             ],

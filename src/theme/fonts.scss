@@ -1,0 +1,21 @@
+@font-face {
+  font-family: "SF Pro";
+  font-weight: 800;
+  src: url(../assets/font/SFPro-Bold.otf) format("opentype");
+}
+
+@font-face {
+  font-family: "SF Pro";
+  font-weight: 600;
+  src: url(../assets/font/SFPro-Medium.otf) format("opentype");
+}
+
+@font-face {
+  font-family: "SF Pro";
+  font-weight: 400;
+  src: url(../assets/font/SFPro-Regular.otf) format("opentype");
+}
+
+* {
+  font-family: "SF Pro";
+}

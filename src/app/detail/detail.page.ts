@@ -12,19 +12,13 @@ export class DetailPage implements OnInit {
 
   private updatedAt: string;
 
-  constructor()
-  {}
+  constructor() {}
 
   ngOnInit() {
     this.updatedAt = new Intl.DateTimeFormat("fr-FR").format(this.note.updatedAt);
   }
 
-  
   async share() {
     await Utils.share(this.note)
   }
-
-  
-  
- 
 }

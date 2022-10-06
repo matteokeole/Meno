@@ -4,7 +4,7 @@ import { AlertController, ToastController } from '@ionic/angular';
 import { Note, NoteService } from '../note.service';
 import { Dialog } from '@capacitor/dialog';
 import { Toast } from '@capacitor/toast';
-import * as Utils  from '../utils' 
+import * as Utils  from '../utils'
 
 @Component({
   selector: 'app-home',
@@ -19,7 +19,7 @@ export class HomePage implements OnInit {
     private noteService: NoteService,
     private alertController: AlertController,
     private toastController: ToastController,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -62,8 +62,12 @@ export class HomePage implements OnInit {
   }
 
   toggleFavorite(note: Note) {
-   Utils.toggleFavorite(note)
+    Utils.toggleFavorite(note);
     this.notes = this.results = this.noteService.findAll();
+  }
+
+  async share(note: Note) {
+    await Utils.share(note);
   }
 
   async deleteNote(note: Note) {
@@ -74,8 +78,7 @@ export class HomePage implements OnInit {
         {
           text: 'Annuler',
           role: 'cancel',
-        },
-        {
+        }, {
           text: 'Supprimer',
           role: 'destructive',
         },
@@ -112,11 +115,5 @@ export class HomePage implements OnInit {
       this.noteService.delete(note.id);
       this.notes = this.results = this.noteService.findAll();
     }
-  }
-
-  async showHelloToast() {
-    await Toast.show({
-      text: 'La note a été supprimée !',
-    });
   }
 }
