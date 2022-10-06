@@ -1,5 +1,6 @@
 import {Share} from "@capacitor/share";
 import {Device} from "@capacitor/device";
+import {Note} from "./note.service";
 
 /**
  * Shares the note with other users.
@@ -8,7 +9,7 @@ import {Device} from "@capacitor/device";
  * @async
  * @param {Note} note
  */
-export async function share(note) {
+export async function share(note: Note) {
   const
     {model} = await Device.getInfo(),
     percent = (await Device.getBatteryInfo()).batteryLevel * 100;
@@ -24,6 +25,6 @@ export async function share(note) {
  * 
  * @param {Note} note
  */
-export function toggleFavorite(note) {
+export function toggleFavorite(note: Note) {
   note.isFavorite = !note.isFavorite;
 };

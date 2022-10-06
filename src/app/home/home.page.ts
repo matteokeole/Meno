@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
 import { Note, NoteService } from '../note.service';
-import { Dialog } from '@capacitor/dialog';
-import { Toast } from '@capacitor/toast';
-import * as Utils  from '../utils'
+import * as Utils from '../utils'
 
 @Component({
   selector: 'app-home',
@@ -70,17 +68,24 @@ export class HomePage implements OnInit {
     await Utils.share(note);
   }
 
+  /**
+   * Deletes the selected note.
+   * A confirmation modal and a success toast are displayed before and after the deletion, respectively.
+   * 
+   * @async
+   * @param {Note} note
+   */
   async deleteNote(note: Note) {
     const alert = await this.alertController.create({
-      header: 'Confirmation',
-      message: `Voulez-vous supprimer la note ${note.title} ?`,
+      header: "Confirmation",
+      message: `Etes-vous sûr(e) de vouloir supprimer la note ${note.title} ?`,
       buttons: [
         {
-          text: 'Annuler',
-          role: 'cancel',
+          text: "Annuler",
+          role: "cancel",
         }, {
-          text: 'Supprimer',
-          role: 'destructive',
+          text: "Supprimer",
+          role: "destructive",
         },
       ],
     });
@@ -89,30 +94,17 @@ export class HomePage implements OnInit {
 
     const response = await alert.onDidDismiss();
 
-    if (response.role === 'destructive') {
+    if (response.role === "destructive") {
       this.noteService.delete(note.id);
 
-      (
-        await this.toastController.create({
-          icon: 'checkmark-circle-outline',
-          message: 'La note a été supprimée.',
-          duration: 2000,
-        })
-      ).present();
+      (await this.toastController.create({
+        icon: "checkmark-circle-outline",
+        message: "La note a été supprimée.",
+        color: "success",
+        duration: 2000,
+      })).present();
 
       // Retrieve the updated list
-      this.notes = this.results = this.noteService.findAll();
-    }
-  }
-
-  async deteleAlertNative(note: Note) {
-    const { value } = await Dialog.confirm({
-      title: 'Confirm',
-      message: `Suprimer cette note ?`,
-    });
-    console.log('Confirmed:', value);
-    if (value == true) {
-      this.noteService.delete(note.id);
       this.notes = this.results = this.noteService.findAll();
     }
   }

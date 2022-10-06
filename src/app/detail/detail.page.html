@@ -8,11 +8,15 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-fab-button color="tertiary" (click)="share()">
-    <ion-icon name="share-social"></ion-icon>
-  </ion-fab-button>
+  <ion-button shape="round" fill="clear" (click)="toggleFavorite()">
+    <ion-icon name="{{note.isFavorite ? 'star' : 'star-outline'}}"></ion-icon>
+    <ion-text>&nbsp;&nbsp;{{note.isFavorite ? "Supprimer des" : "Ajouter aux"}} favoris</ion-text>
+  </ion-button><br>
 
-  <ion-text color="medium">
-    <br>Dernière mise à jour le {{updatedAt}}
-  </ion-text>
+  <ion-button color="tertiary" shape="round" fill="clear" (click)="share()">
+    <ion-icon name="share-social"></ion-icon>
+    <ion-text>&nbsp;&nbsp;Partager</ion-text>
+  </ion-button><br><br>
+
+  <ion-text color="medium">Dernière mise à jour le {{updatedAt}}</ion-text>
 </ion-content>

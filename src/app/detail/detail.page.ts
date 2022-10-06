@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Note } from '../note.service';
+import { Router } from '@angular/router';
+import { AlertController, NavController, ToastController } from '@ionic/angular';
+import { Note, NoteService } from '../note.service';
 import * as Utils  from '../utils' 
 
 @Component({
@@ -12,13 +14,23 @@ export class DetailPage implements OnInit {
 
   private updatedAt: string;
 
-  constructor() {}
+  constructor(
+    private noteService: NoteService,
+    private alertController: AlertController,
+    private toastController: ToastController,
+    private navController: NavController,
+    private router: Router,
+  ) {}
 
   ngOnInit() {
     this.updatedAt = new Intl.DateTimeFormat("fr-FR").format(this.note.updatedAt);
   }
 
+  toggleFavorite() {
+    Utils.toggleFavorite(this.note);
+  }
+
   async share() {
-    await Utils.share(this.note)
+    await Utils.share(this.note);
   }
 }
