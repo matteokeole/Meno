@@ -6,7 +6,7 @@ export interface Note {
   id: number,
   title: string,
   content: string,
-  favorite: boolean,
+  isFavorite: boolean,
   updatedAt: Date,
 }
 
@@ -15,15 +15,22 @@ export interface Note {
 })
 export class NoteService {
   private notes: Note[];
+  private defaultNote: object;
 
   constructor() {
+    this.defaultNote = {
+      title: "Nouvelle note",
+      content: "",
+      isFavorite: false,
+      updatedAt: new Date,
+    };
     this.notes = [];
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 1; i <= 10; i++) {
       this.create({
         title: `pouet${i}`,
         content: `Content pouet${i}`,
-        favorite: i % 3 === 0,
+        isFavorite: !(i % 3),
       });
     }
   }
@@ -53,8 +60,11 @@ export class NoteService {
   }
 
   create(note): Note {
-    note.id = id++;
-    note.updatedAt = new Date;
+    note = {
+      id: ++id,
+      ...this.defaultNote,
+      ...note,
+    };
 
     this.notes.push(note);
 
