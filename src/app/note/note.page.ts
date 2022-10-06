@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { IonRouterOutlet, ModalController } from '@ionic/angular';
 import { Note, NoteService } from '../note.service';
-import { Share } from '@capacitor/share';
-import { Device } from '@capacitor/device';
+import { DetailPage } from '../detail/detail.page';
 
 @Component({
   selector: 'app-note',
@@ -11,36 +11,34 @@ import { Device } from '@capacitor/device';
 })
 export class NotePage implements OnInit {
   public note: Note;
-  private updatedAt: string;
   private editorConfig: object;
   private timeout;
-  private delay: number;
-  private presentingElement;
 
   constructor(
     private noteService: NoteService,
+    private modalController: ModalController,
     private activatedRoute: ActivatedRoute,
+    private routerOutlet: IonRouterOutlet,
   ) {
+    // TinyMCE configuration
     this.editorConfig = {
       base_url: "/tinymce",
       suffix: ".min",
       height: 800,
     }
-    this.delay = 250;
-    this.presentingElement = null;
   }
 
   ngOnInit() {
-    // Convert the string ID to a number
+    // Retrieve the note with the route ID
     const id = +this.activatedRoute.snapshot.paramMap.get("id");
-
     this.note = this.noteService.find(id);
-
-    this.presentingElement = document.querySelector(".ion-page");
-
-    this.updatedAt = new Intl.DateTimeFormat("fr-FR").format(this.note.updatedAt);
   }
 
+  /**
+   * Initializes the TinyMCE editor for the note.
+   * 
+   * @param {object} e  Event
+   */
   init(e) {
     const {editor} = e;
 
@@ -51,22 +49,37 @@ export class NotePage implements OnInit {
     document.querySelector(".tox-statusbar").remove();
   }
 
-  async sharing(){
-    const info = await Device.getInfo();
-    const infoBattery = await Device.getBatteryInfo();
-    await Share.share({
-      title: this.note.title,
-      text: `${this.note.content} depuis mon ${info.model} chargé à ${infoBattery.batteryLevel * 100}%`,
-    });
-  }
-
+  /**
+   * Saves the TinyMCE editor content.
+   * 250ms debounce.
+   * 
+   * @param {object} e  Event
+   */
   save(e) {
+    const {editor} = e;
+
+    // Reset the timeout
     clearTimeout(this.timeout);
     this.timeout = setTimeout(() => {
-      this.note.content=e.editor.getContent();
+      this.note.content = editor.getContent();
       this.noteService.save(this.note);
+    }, 250);
+  }
 
-      console.log("Saving...");
-    }, this.delay);
+  /**
+   * Displays the note details modal.
+   * 
+   * @see {@link ../detail/detail.page.ts}
+   * @async
+   */
+  async showDetails() {
+    (await this.modalController.create({
+      component: DetailPage,
+      componentProps: {
+        note: this.note,
+      },
+      canDismiss: true,
+      presentingElement: this.routerOutlet.nativeEl,
+    })).present();
   }
 }

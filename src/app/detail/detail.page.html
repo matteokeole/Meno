@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Détails</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="modal.dismiss()">Fermer</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-fab-button (click)="share()">
+    <ion-icon name="share"></ion-icon>
+  </ion-fab-button>
+
+  <ion-text color="medium">
+    <br>Dernière mise à jour le {{updatedAt}}
+  </ion-text>
+</ion-content>

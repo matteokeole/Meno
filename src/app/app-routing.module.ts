@@ -12,7 +12,11 @@ const routes: Routes = [
   }, {
     path: 'note/:id',
     loadChildren: () => import('./note/note.module').then( m => m.NotePageModule),
+  },  {
+    path: 'detail',
+    loadChildren: () => import('./detail/detail.module').then( m => m.DetailPageModule)
   },
+
 ];
 
 @NgModule({
