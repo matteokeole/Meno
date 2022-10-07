@@ -26,8 +26,6 @@
     "@capacitor/haptics": "4.0.1",
     "@capacitor/keyboard": "4.0.1",
     "@capacitor/share": "^4.0.1",
-    "@capacitor/status-bar": "4.0.1",
-    "@capacitor/toast": "^4.0.1",
     "@ionic/angular": "^6.1.9",
     "@tinymce/tinymce-angular": "^7.0.0",
     "ionicons": "^6.0.3",
