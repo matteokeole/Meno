@@ -16,7 +16,7 @@ export async function share(note: Note) {
 
   await Share.share({
     title: note.title,
-    text: `${note.content} depuis mon ${model} chargé à ${percent}%`,
+    text: `${note.content} depuis mon ${model} chargé à ${percent.toFixed()}%`,
   });
 };
 
