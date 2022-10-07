@@ -20,11 +20,16 @@ export class HomePage implements OnInit {
     private router: Router,
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.notes = this.results = this.noteService.findAll();
   }
 
-  searchNotes(e): void {
+  /**
+   * Searches through the note list.
+   * 
+   * @param e
+   */
+  searchNotes(e) {
     const query = e.target.value.toLowerCase();
     this.results = this.notes.filter(
       (note) =>
@@ -34,8 +39,14 @@ export class HomePage implements OnInit {
     );
   }
 
+  /**
+   * Formats the note last update date.
+   * 
+   * @param {Date} date
+   * @returns {string}
+   */
   formatDate(date: Date): string {
-    // si la date est aujourd'hui, on affiche l'heure
+    // If the date is today, display the hour only
     if (date.toDateString() === new Date().toDateString()) {
       return date.toLocaleTimeString('fr-FR', {
         hour: '2-digit',
@@ -50,22 +61,13 @@ export class HomePage implements OnInit {
     }
   }
 
+  /**
+   * Creates a new note and navigates to its editor.
+   */
   createNote() {
-    const note = this.noteService.create({
-      title: 'Nouvelle note',
-      content: '',
-    });
+    const note = this.noteService.create({});
 
     this.router.navigate([`/note/${note.id}`]);
-  }
-
-  toggleFavorite(note: Note) {
-    Utils.toggleFavorite(note);
-    this.notes = this.results = this.noteService.findAll();
-  }
-
-  async share(note: Note) {
-    await Utils.share(note);
   }
 
   /**
@@ -107,5 +109,14 @@ export class HomePage implements OnInit {
       // Retrieve the updated list
       this.notes = this.results = this.noteService.findAll();
     }
+  }
+
+  toggleFavorite(note: Note) {
+    Utils.toggleFavorite(note);
+    this.notes = this.results = this.noteService.findAll();
+  }
+
+  async share(note: Note) {
+    await Utils.share(note);
   }
 }

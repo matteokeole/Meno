@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IonRouterOutlet, ModalController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { Note, NoteService } from '../note.service';
 import { DetailPage } from '../detail/detail.page';
-import { PluginListenerHandle } from '@capacitor/core';
 
 @Component({
   selector: 'app-note',
@@ -19,7 +18,6 @@ export class NotePage implements OnInit {
     private noteService: NoteService,
     private modalController: ModalController,
     private activatedRoute: ActivatedRoute,
-    private routerOutlet: IonRouterOutlet
   ) {
     // TinyMCE configuration
     this.editorConfig = {
@@ -37,7 +35,7 @@ export class NotePage implements OnInit {
   }
 
   ngOnInit() {
-    // Retrieve the note with the route ID
+    // Retrieve the current note
     const id = +this.activatedRoute.snapshot.paramMap.get('id');
     this.note = this.noteService.find(id);
   }
@@ -72,7 +70,6 @@ export class NotePage implements OnInit {
       this.note.content = editor.getContent();
 
       this.noteService.save(this.note);
-      console.warn(editor.getContent());
     }, 250);
   }
 
@@ -90,23 +87,9 @@ export class NotePage implements OnInit {
           note: this.note,
         },
         canDismiss: true,
-        presentingElement: this.routerOutlet.nativeEl,
+        breakpoints: [.25, .5, .75],
+        initialBreakpoint: .25,
       })
     ).present();
   }
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
 }
