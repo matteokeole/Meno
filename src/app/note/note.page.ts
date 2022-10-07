@@ -24,11 +24,9 @@ export class NotePage implements OnInit {
       base_url: '/tinymce',
       suffix: '.min',
       height: '95vh',
-      menubar: true,
+      menubar: false,
       toolbar_location: 'bottom',
-      toolbar:
-        'undo redo |  strikethrough | styleselect | formatselect | bold italic backcolor | forecolor |\
-      bullist numlist ',
+      toolbar: [" styles | bold italic  underline |forecolor", "fontsize   |  alignleft aligncenter alignright | backcolor"],
       content_style:
         'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
     };
