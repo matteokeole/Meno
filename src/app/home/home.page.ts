@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
 import { Note, NoteService } from '../note.service';
 import * as Utils from '../utils'
+import { SplashScreen } from '@capacitor/splash-screen';
 
 @Component({
   selector: 'app-home',
@@ -22,6 +23,7 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.notes = this.results = this.noteService.findAll();
+    
   }
 
   /**
@@ -60,6 +62,7 @@ export class HomePage implements OnInit {
       });
     }
   }
+  
 
   /**
    * Creates a new note and navigates to its editor.
@@ -118,5 +121,11 @@ export class HomePage implements OnInit {
 
   async share(note: Note) {
     await Utils.share(note);
+  }
+  async Splash(){
+    await SplashScreen.show({
+      showDuration: 2000,
+      autoHide: true,
+    });
   }
 }

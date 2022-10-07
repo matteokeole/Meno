@@ -26,6 +26,7 @@
     "@capacitor/haptics": "4.0.1",
     "@capacitor/keyboard": "4.0.1",
     "@capacitor/share": "^4.0.1",
+    "@capacitor/splash-screen": "^4.1.0",
     "@ionic/angular": "^6.1.9",
     "@tinymce/tinymce-angular": "^7.0.0",
     "ionicons": "^6.0.3",
