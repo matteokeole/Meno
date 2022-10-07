@@ -15,7 +15,7 @@ export interface Note {
 })
 export class NoteService {
   private notes: Note[];
-  private defaultNote: object;
+  private defaultNote;
 
   constructor() {
     this.defaultNote = {
@@ -26,13 +26,12 @@ export class NoteService {
     };
     this.notes = [];
 
-    for (let i = 1; i <= 10; i++) {
-      this.create({
-        title: `pouet${i}`,
-        content: `Content pouet${i}`,
-        isFavorite: !(i % 3),
-      });
-    }
+    // Fixtures
+    for (let i = 1; i <= 10; i++) this.create({
+      title: `Note ${i}`,
+      content: `Contenu de la note ${i}`,
+      isFavorite: !Math.floor(8 * Math.random()),
+    });
   }
 
   find(id: number): Note {
@@ -72,6 +71,12 @@ export class NoteService {
   }
 
   save(note: Note): void {
+    // Ensure that the note title is not only spaces
+    note.title = note.title.trim();
+
+    // Ensure that the note title is never empty
+    note.title ||= this.defaultNote.title;
+
     note.updatedAt = new Date;
   }
 

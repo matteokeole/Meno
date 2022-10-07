@@ -23,7 +23,6 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.notes = this.results = this.noteService.findAll();
-    
   }
 
   /**
@@ -32,12 +31,11 @@ export class HomePage implements OnInit {
    * @param e
    */
   searchNotes(e) {
-    const query = e.target.value.toLowerCase();
-    this.results = this.notes.filter(
-      (note) =>
-        note.content.toLowerCase().includes(query) ||
-        note.updatedAt.toString().includes(query) ||
-        note.title.toString().includes(query)
+    const expr = new RegExp(e.target.value.trim(), "gi");
+
+    this.results = this.notes.filter(note =>
+      expr.test(note.title) ||
+      expr.test(note.content),
     );
   }
 
@@ -114,6 +112,18 @@ export class HomePage implements OnInit {
     }
   }
 
+  /**
+   * SplashScreen API test.
+   * 
+   * @async
+   */
+  async Splash(){
+    await SplashScreen.show({
+      showDuration: 2000,
+      autoHide: true,
+    });
+  }
+
   toggleFavorite(note: Note) {
     Utils.toggleFavorite(note);
     this.notes = this.results = this.noteService.findAll();
@@ -121,11 +131,5 @@ export class HomePage implements OnInit {
 
   async share(note: Note) {
     await Utils.share(note);
-  }
-  async Splash(){
-    await SplashScreen.show({
-      showDuration: 2000,
-      autoHide: true,
-    });
   }
 }
