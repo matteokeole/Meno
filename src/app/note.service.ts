@@ -27,11 +27,11 @@ export class NoteService {
     this.notes = [];
 
     // Fixtures
-    for (let i = 1; i <= 10; i++) this.create({
+    /* for (let i = 1; i <= 10; i++) this.create({
       title: `Note ${i}`,
       content: `Contenu de la note ${i}`,
       isFavorite: !Math.floor(8 * Math.random()),
-    });
+    }); */
   }
 
   find(id: number): Note {
